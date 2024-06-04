@@ -1,5 +1,4 @@
 from huggingface_hub import hf_hub_download
-import shutil
 import os
 
 # Define the model repository and the files to download
@@ -11,10 +10,8 @@ target_dir = "./"
 
 # Download files
 for filename in filenames:
-    # Download the file to the cache directory
-    cached_file = hf_hub_download(repo_id=repo_id, filename=filename)
+    # Download the file to the current directory
+    hf_hub_download(repo_id=repo_id, filename=filename, local_dir=target_dir, local_dir_use_symlinks=False)
 
-    # Move the file from the cache directory to the target directory
-    shutil.move(cached_file, os.path.join(target_dir, filename))
+print("Files have been downloaded and saved to the current directory.")
 
-print("Files have been downloaded and moved to the current directory.")
